@@ -1,32 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Monster : MonoBehaviour {
+public class Monster : EnemyUnit {
 
-	public GameObject m_moveTarget;
-	public float m_speed = 0.1f;
-	public int m_maxHP = 30;
-	const float m_reachDistance = 0.3f;
+	[SerializeField] private EnemyUnitConfig _config;
 
-	public int m_hp;
+	private EnemyData _data;
+  private Transform _moveTarget;
 
-	void Start() {
-		m_hp = m_maxHP;
+	private void Start() {
+		Init();
 	}
 
-	void Update () {
-		if (m_moveTarget == null)
-			return;
-		
-		if (Vector3.Distance (transform.position, m_moveTarget.transform.position) <= m_reachDistance) {
-			Destroy (gameObject);
-			return;
-		}
+  private void Update()
+  {
+    Move();
+  }
 
-		var translation = m_moveTarget.transform.position - transform.position;
-		if (translation.magnitude > m_speed) {
-			translation = translation.normalized * m_speed;
-		}
-		transform.Translate (translation);
-	}
+  public override void Init()
+  {
+		_data = _config.Data;
+  }
+
+  protected override void Move()
+  {
+    if (_moveTarget == null)
+      return;
+
+    if(Vector3.Distance(transform.position, _moveTarget.position) < _data.ReachDistance)
+    {
+      Destroy(gameObject);
+      return;
+    }
+
+    var translation = _moveTarget.position - transform.position;
+    if (translation.magnitude > _data.Speed)
+      translation = translation.normalized * _data.Speed;
+
+    transform.Translate(translation);
+  }
+
+  public override void TakeDamage(uint damage)
+  {
+		_data.HP -= damage;
+
+		if (_data.HP <= 0)
+			Die();
+  }
+
+  public override void Die()
+  {
+    Destroy(gameObject);
+  }
 }

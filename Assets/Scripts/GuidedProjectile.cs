@@ -20,14 +20,14 @@ public class GuidedProjectile : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		var monster = other.gameObject.GetComponent<Monster> ();
-		if (monster == null)
-			return;
-
-		monster.m_hp -= m_damage;
-		if (monster.m_hp <= 0) {
-			Destroy (monster.gameObject);
-		}
-		Destroy (gameObject);
+		//var monster = other.gameObject.GetComponent<Monster> ();
+		//if (monster == null)
+		//	return;
+		//
+		//monster.m_hp -= m_damage;
+		//if (monster.m_hp <= 0) {
+		//	Destroy (monster.gameObject);
+		//}
+		//Destroy (gameObject);
 	}
 }
