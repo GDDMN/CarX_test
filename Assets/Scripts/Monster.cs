@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Monster : EnemyUnit {
 
-	[SerializeField] private EnemyUnitConfig _config;
-
+	public EnemyUnitConfig _config;
 	private EnemyData _data;
-  private Transform _moveTarget;
+
+  public Transform MoveTarget { set; private get; }
 
 	private void Start() {
 		Init();
@@ -24,20 +24,13 @@ public class Monster : EnemyUnit {
 
   protected override void Move()
   {
-    if (_moveTarget == null)
+    if (MoveTarget == null)
       return;
 
-    if(Vector3.Distance(transform.position, _moveTarget.position) < _data.ReachDistance)
-    {
+    if(Vector3.Distance(transform.position, MoveTarget.position) < _data.ReachDistance)
       Destroy(gameObject);
-      return;
-    }
 
-    var translation = _moveTarget.position - transform.position;
-    if (translation.magnitude > _data.Speed)
-      translation = translation.normalized * _data.Speed;
-
-    transform.Translate(translation);
+    transform.position = Vector3.MoveTowards(transform.position, MoveTarget.position, _data.Speed * Time.deltaTime);
   }
 
   public override void TakeDamage(uint damage)
