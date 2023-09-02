@@ -3,34 +3,35 @@ using System.Collections;
 
 public class Monster : EnemyUnit {
 
-	public EnemyUnitConfig _config;
+  [SerializeField] private EnemyUnitConfig _config;
 	private EnemyData _data;
 
-  public Transform MoveTarget { set; private get; }
-
-	private void Start() {
-		Init();
-	}
+  private Transform _moveTarget;
 
   private void Update()
   {
     Move();
   }
 
-  public override void Init()
+  public override void Init(Transform moveTarget)
   {
+    _moveTarget = moveTarget;
+    
+    if(_moveTarget == null)
+    {
+      Debug.LogError("No target to move unit");
+      Destroy(gameObject);
+    }
+
 		_data = _config.Data;
   }
 
-  protected override void Move()
+  public override void Move()
   {
-    if (MoveTarget == null)
-      return;
-
-    if(Vector3.Distance(transform.position, MoveTarget.position) < _data.ReachDistance)
+    if(Vector3.Distance(transform.position, _moveTarget.position) < _data.ReachDistance)
       Destroy(gameObject);
 
-    transform.position = Vector3.MoveTowards(transform.position, MoveTarget.position, _data.Speed * Time.deltaTime);
+    transform.position = Vector3.MoveTowards(transform.position, _moveTarget.position, _data.Speed * Time.deltaTime);
   }
 
   public override void TakeDamage(uint damage)
