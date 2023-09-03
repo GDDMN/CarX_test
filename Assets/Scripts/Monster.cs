@@ -10,7 +10,7 @@ public class Monster : EnemyUnit {
     Move();
   }
 
-  public override void Init(Transform moveTarget, EnemyUnitConfig config)
+  public override void Init(Transform moveTarget, EnemyData data)
   {
     _moveTarget = moveTarget;
     
@@ -20,7 +20,7 @@ public class Monster : EnemyUnit {
       Destroy(gameObject);
     }
 
-		_data = config.Data;
+		_data = data;
   }
 
   public override void Move()

@@ -8,6 +8,9 @@ public class EnemyUnitConfig : ScriptableObject
   [SerializeField] private EnemyUnit _unit;
 
   public EnemyData Data => _data;
-  public EnemyUnit Unit => _unit;
 
+  public void Init(Transform moveTarget)
+  {
+    _unit.Init(moveTarget, _data);
+  }
 }

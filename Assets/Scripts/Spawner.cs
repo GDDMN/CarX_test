@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour {
 
   private void Start()
   {
-	//	StartCoroutine(EnemySpawn());
+		StartCoroutine(EnemySpawn());
   }
 
   void Update () {
@@ -27,11 +27,13 @@ public class Spawner : MonoBehaviour {
 		//}
 	}
 
-	//private IEnumerator EnemySpawn()
-  //{
-	//	while(true)
-  //  {
-	//		yield return null;
-  //  }
-  //}
+	private IEnumerator EnemySpawn()
+  {
+		while(true)
+    {
+			var enemyConf = _allEnemies.GetBy(EnemiesType.DEFAULT);
+			enemyConf.Init(m_moveTarget);
+			yield return null;
+    }
+  }
 }
