@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public abstract class EnemyUnit : MonoBehaviour, IHurtable
+public abstract class EnemyUnit : MonoBehaviour
 {
   public abstract void Init(Transform moveTarget);
   public abstract void Move();
