@@ -5,8 +5,7 @@ public class Spawner : MonoBehaviour {
 	public float m_interval = 3;
 	public Transform m_moveTarget;
 
-	//public EnemyUnitConfig enemyConfig;
-
+	public EnemiesUnitConfig Enemies;
 	private float m_lastSpawn = -1;
 
 
