@@ -11,7 +11,7 @@ public class CannonProjectile : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		var hurtable = other.GetComponent<IHurtable>();
+		var hurtable = other.GetComponent<EnemyUnit>();
 
 		if (hurtable != null)
 			hurtable.TakeDamage(m_damage);
