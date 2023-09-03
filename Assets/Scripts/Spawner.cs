@@ -2,38 +2,31 @@
 using System.Collections;
 
 public class Spawner : MonoBehaviour {
-	public float m_interval = 3;
-	public Transform m_moveTarget;
 
+	[SerializeField] private Transform m_moveTarget;
 	[SerializeField] private EnemiesUnitConfig _allEnemies;
-	private float m_lastSpawn = -1;
+	[SerializeField] private float _spawningSpeed = .2f;
 
+	private float _time = 0f;
+	private float _spawnTime = 1f;
 
   private void Start()
   {
 		StartCoroutine(EnemySpawn());
   }
 
-  void Update () {
-		//if (Time.time > m_lastSpawn + m_interval) {
-		//	var newMonster = GameObject.CreatePrimitive (PrimitiveType.Capsule);
-		//	var r = newMonster.AddComponent<Rigidbody> ();
-		//	r.useGravity = false;
-		//	newMonster.transform.position = transform.position;
-		//	var monsterBeh = newMonster.AddComponent<Monster> ();
-		//	monsterBeh.Init(m_moveTarget);
-		//
-		//	m_lastSpawn = Time.time;
-		//}
-	}
-
 	private IEnumerator EnemySpawn()
   {
-		while(true)
+		while(_spawnTime <= _time)
     {
-			var enemyConf = _allEnemies.GetBy(EnemiesType.DEFAULT);
-			enemyConf.Init(m_moveTarget);
+			_time += _spawningSpeed * Time.deltaTime;
 			yield return null;
     }
-  }
+
+		var enemyConf = _allEnemies.GetBy(EnemiesType.DEFAULT);
+		enemyConf.Init(transform, m_moveTarget);
+		_time = 0f;
+
+		StartCoroutine(EnemySpawn());
+	}
 }
