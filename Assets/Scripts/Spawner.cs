@@ -5,13 +5,13 @@ public class Spawner : MonoBehaviour {
 	public float m_interval = 3;
 	public Transform m_moveTarget;
 
-	public EnemiesUnitConfig Enemies;
+	[SerializeField] private EnemiesUnitConfig _allEnemies;
 	private float m_lastSpawn = -1;
 
 
   private void Start()
   {
-		StartCoroutine(EnemySpawn());
+	//	StartCoroutine(EnemySpawn());
   }
 
   void Update () {
@@ -27,11 +27,11 @@ public class Spawner : MonoBehaviour {
 		//}
 	}
 
-	private IEnumerator EnemySpawn()
-  {
-		while(true)
-    {
-			yield return null;
-    }
-  }
+	//private IEnumerator EnemySpawn()
+  //{
+	//	while(true)
+  //  {
+	//		yield return null;
+  //  }
+  //}
 }

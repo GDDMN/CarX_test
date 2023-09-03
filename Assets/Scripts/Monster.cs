@@ -2,9 +2,7 @@
 
 public class Monster : EnemyUnit {
 
-  [SerializeField] private EnemyUnitConfig _config;
-	private EnemyData _data;
-
+  private EnemyData _data;
   private Transform _moveTarget;
 
   private void Update()
@@ -12,7 +10,7 @@ public class Monster : EnemyUnit {
     Move();
   }
 
-  public override void Init(Transform moveTarget)
+  public override void Init(Transform moveTarget, EnemyUnitConfig config)
   {
     _moveTarget = moveTarget;
     
@@ -22,7 +20,7 @@ public class Monster : EnemyUnit {
       Destroy(gameObject);
     }
 
-		_data = _config.Data;
+		_data = config.Data;
   }
 
   public override void Move()

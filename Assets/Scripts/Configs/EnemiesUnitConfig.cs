@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [CreateAssetMenu(fileName = "all_enemies", menuName = "Cofigs/all_enemies")]
 public class EnemiesUnitConfig : ScriptableObject
 {
