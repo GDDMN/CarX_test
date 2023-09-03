@@ -1,4 +1,5 @@
 ﻿public enum EnemiesType
 {
-  DEFAULT
+  DEFAULT,
+  ARMORED
 }
