@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class Spawner : MonoBehaviour {
@@ -10,23 +11,27 @@ public class Spawner : MonoBehaviour {
 	private float _time = 0f;
 	private float _spawnTime = 1f;
 
-  private void Start()
+	private void Update()
   {
-		StartCoroutine(EnemySpawn());
-  }
+		if (ChechTimeForSpawning())
+			Spawn();
+	}
 
-	private IEnumerator EnemySpawn()
+	private bool ChechTimeForSpawning()
   {
-		while(_spawnTime <= _time)
-    {
+		if (_spawnTime > _time)
+		{
 			_time += _spawningSpeed * Time.deltaTime;
-			yield return null;
-    }
+			return false;
+		}
 
+		return true;
+	}
+
+	private void Spawn()
+  {
 		var enemyConf = _allEnemies.GetBy(EnemiesType.DEFAULT);
 		enemyConf.Init(transform, m_moveTarget);
 		_time = 0f;
-
-		StartCoroutine(EnemySpawn());
 	}
 }
