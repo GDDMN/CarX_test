@@ -4,20 +4,26 @@ using System.Collections;
 
 public class Spawner : MonoBehaviour {
 
-	[SerializeField] private Transform m_moveTarget;
+	[SerializeField] private Transform _moveTarget;
 	[SerializeField] private EnemiesUnitConfig _allEnemies;
 	[SerializeField] private float _spawningSpeed = .2f;
 
+	private Transform startPos;
 	private float _time = 0f;
 	private float _spawnTime = 1f;
 
-	private void Update()
+  private void Start()
   {
-		if (ChechTimeForSpawning())
+		startPos = transform;
+  }
+
+  private void Update()
+  {
+		if (CheckTimeForSpawning())
 			Spawn();
 	}
 
-	private bool ChechTimeForSpawning()
+	private bool CheckTimeForSpawning()
   {
 		if (_spawnTime > _time)
 		{
@@ -31,7 +37,7 @@ public class Spawner : MonoBehaviour {
 	private void Spawn()
   {
 		var enemyConf = _allEnemies.GetBy(EnemiesType.DEFAULT);
-		enemyConf.Init(transform, m_moveTarget);
+		enemyConf.InitUnit(startPos, _moveTarget);
 		_time = 0f;
 	}
 }

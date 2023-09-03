@@ -9,7 +9,7 @@ public class EnemyUnitConfig : ScriptableObject
 
   public EnemyData Data => _data;
 
-  public void Init(Transform startPosition, Transform moveTarget)
+  public void InitUnit(Transform startPosition, Transform moveTarget)
   {
     var unit = Instantiate(_unit, startPosition);
     unit.Init(moveTarget, _data);
